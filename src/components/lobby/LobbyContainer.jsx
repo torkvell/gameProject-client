@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Lobby from "./Lobby";
+// import Lobby from "./Lobby";
 import { createLobby, getRooms, deleteRoom } from "../../store/lobby/actions";
+import CreateRoom from "./CreateRoom";
 
 class LobbyContainer extends Component {
   state = {
@@ -31,27 +32,24 @@ class LobbyContainer extends Component {
 
   render() {
     console.log("THE RENDER STATE:", this.props);
-    if (this.props.rooms.length < 1) return <h2>Loading...</h2>;
+    if (this.props.lobby.gameRooms.length < 1)
+      return (
+        <div>
+          <CreateRoom
+            handleSubmit={this.handleSubmit}
+            onChange={this.handleClick}
+            state={this.state}
+          />
+          <h2>No rooms found</h2>
+        </div>
+      );
     return (
       <div>
-        <Lobby />
-        {/* <h4>The form</h4>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            ROOM
-            <input
-              type="text"
-              placeholder="Room to enter"
-              name="room"
-              value={this.state.room}
-              onChange={this.handleClick}
-            ></input>
-          </label>
-          <button type="submit">ENTER</button>
-        </form> */}
+        {/* <Lobby /> */}
+
         {console.log("THE ROOMS FROM STATE:", this.props.rooms.gameRooms)}
 
-        {this.props.rooms.gameRooms.map(room => {
+        {this.props.lobby.gameRooms.map(room => {
           return (
             <div>
               <h4>{room.room_name}</h4>
@@ -66,10 +64,10 @@ class LobbyContainer extends Component {
 }
 
 function mapStateToProps(reduxState) {
-  // console.log("THE REDUX STATE IN LOBBYCOMP", reduxState);
+  console.log("THE REDUX STATE IN LOBBYCOMP", reduxState);
   return {
     user: reduxState.user,
-    rooms: reduxState.rooms
+    lobby: reduxState.lobby
   };
 }
 
