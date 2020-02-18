@@ -6,8 +6,6 @@ import { withRouter } from "react-router";
 
 class NavBar extends Component {
   render() {
-    console.log(" render of navbar", this.props);
-
     return (
       <MaterialUInav
         user={this.props.user}

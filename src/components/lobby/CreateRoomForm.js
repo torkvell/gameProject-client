@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CreateRoom(props) {
+export default function CreateRoomForm(props) {
   return (
     <div>
       <h4>Create room</h4>
