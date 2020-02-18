@@ -1,13 +1,12 @@
 import axios from "axios";
 
 function lobbyCreated(data) {
-  return { type: "LOBBY_CREATED", payload: data };
+  return { type: "ROOM_CREATED", payload: data };
 }
 
 const baseUrl = "http://localhost:4000";
 
 export const createLobby = (room_name, jwt) => (dispatch, getState) => {
-  console.log("TOKEN", jwt);
   const config = { Authorization: `Bearer ${jwt}` };
   axios
     .post(`${baseUrl}/room`, room_name, { headers: config })
@@ -44,7 +43,7 @@ const roomDeleted = id => {
 
 export const deleteRoom = id => (dispatch, getState) => {
   axios
-    .delete(`${baseUrl}/room`, {
+    .delete(`${baseUrl}/lobby/room`, {
       data: {
         id: id
       }
