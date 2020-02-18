@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import Lobby from "./Lobby";
-import { createLobby, deleteRoom } from "../../store/lobby/actions";
+import {
+  createLobby,
+  deleteRoom,
+  thunkHandleJoin
+} from "../../store/lobby/actions";
 import CreateRoomForm from "./CreateRoomForm";
 
 class LobbyContainer extends Component {
@@ -26,6 +30,10 @@ class LobbyContainer extends Component {
     this.props.deleteRoom(id);
   };
 
+  handleJoin = (gameId, userId) => {
+    console.log("THE GAME AND USER IDS:", gameId, userId);
+    this.props.thunkHandleJoin(gameId, userId);
+  };
   render() {
     if (this.props.lobby.gameRooms.length < 1)
       return (
@@ -50,7 +58,11 @@ class LobbyContainer extends Component {
           return (
             <div>
               <h4>{room.room_name}</h4>
-              <button>Join!</button>
+              <button
+                onClick={() => this.handleJoin(room.id, this.props.user.id)}
+              >
+                Join!
+              </button>
               <button onClick={() => this.deleteRoom(room.id)}>Delete</button>
             </div>
           );
@@ -67,6 +79,8 @@ function mapStateToProps(reduxState) {
   };
 }
 
-export default connect(mapStateToProps, { createLobby, deleteRoom })(
-  LobbyContainer
-);
+export default connect(mapStateToProps, {
+  thunkHandleJoin,
+  createLobby,
+  deleteRoom
+})(LobbyContainer);

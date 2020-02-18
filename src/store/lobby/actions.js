@@ -19,19 +19,6 @@ export const createLobby = (room_name, jwt) => (dispatch, getState) => {
     });
 };
 
-// function roomsFetched(rooms) {
-//   return {
-//     type: "ROOMS_FETCHED",
-//     payload: rooms
-//   };
-// }
-// export const getRooms = () => (dispatch, getState) => {
-//   axios.get(`${baseUrl}/rooms`).then(gamerooms => {
-//     console.log("ROOMS", gamerooms);
-//     dispatch(roomsFetched(gamerooms.data));
-//   });
-// };
-
 const roomDeleted = id => {
   // console.log("THE ID IN ACTIO CREATEOR", id);
 
@@ -51,5 +38,26 @@ export const deleteRoom = id => (dispatch, getState) => {
     .then(response => {
       console.log("THE DELETED ROOM", response);
       dispatch(roomDeleted(response.data));
+    });
+};
+
+function updateUser(gameid) {
+  return {
+    type: "USER_GAME_UPDATE",
+    payload: gameid
+  };
+}
+
+export const thunkHandleJoin = (gameId, userId) => dispatch => {
+  console.log("THE IDSSSS:(THUNK HANDLE)", gameId, userId);
+  axios
+    .post(`${baseUrl}/gametable`, {
+      gameId,
+      userId
+    })
+    .then(response => {
+      console.log("THE JOIN THUNK RESPONSE", response);
+      // const
+      dispatch(updateUser(response.data));
     });
 };
