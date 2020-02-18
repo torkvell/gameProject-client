@@ -4,11 +4,13 @@ function lobbyCreated(data) {
   return { type: "LOBBY_CREATED", payload: data };
 }
 
+const baseUrl = "http://localhost:4000";
+
 export const createLobby = (room_name, jwt) => (dispatch, getState) => {
   console.log("TOKEN", jwt);
   const config = { Authorization: `Bearer ${jwt}` };
   axios
-    .post("http://localhost:4000/room", room_name, { headers: config })
+    .post(`${baseUrl}/room`, room_name, { headers: config })
     .then(response => {
       const roomId = response.data.id;
       const roomName = response.data.room_name;
@@ -25,8 +27,30 @@ function roomsFetched(rooms) {
   };
 }
 export const getRooms = () => (dispatch, getState) => {
-  axios.get("http://localhost:4000/rooms").then(gamerooms => {
+  axios.get(`${baseUrl}/rooms`).then(gamerooms => {
     console.log("ROOMS", gamerooms);
     dispatch(roomsFetched(gamerooms.data));
   });
+};
+
+const roomDeleted = id => {
+  // console.log("THE ID IN ACTIO CREATEOR", id);
+
+  return {
+    type: "ROOM_DELETE",
+    payload: id
+  };
+};
+
+export const deleteRoom = id => (dispatch, getState) => {
+  axios
+    .delete(`${baseUrl}/room`, {
+      data: {
+        id: id
+      }
+    })
+    .then(response => {
+      console.log("THE DELETED ROOM", response);
+      dispatch(roomDeleted(response.data));
+    });
 };

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createLobby, getRooms } from "../../store/lobby/actions";
+import { createLobby, getRooms, deleteRoom } from "../../store/lobby/actions";
 
 class LobbyContainer extends Component {
   state = {
@@ -15,13 +15,17 @@ class LobbyContainer extends Component {
     this.setState({
       room: event.target.value
     });
-    console.log("THE ROOM VALS:", this.state);
+    // console.log("THE ROOM VALS:", this.state);
   };
 
   handleSubmit = e => {
     e.preventDefault();
     // this.setState;
     this.props.createLobby(this.state, this.props.user.token);
+  };
+
+  deleteRoom = id => {
+    this.props.deleteRoom(id);
   };
 
   render() {
@@ -50,7 +54,7 @@ class LobbyContainer extends Component {
             <div>
               <h4>{room.room_name}</h4>
               <button>Join!</button>
-              <button>Delete</button>
+              <button onClick={() => this.deleteRoom(room.id)}>Delete</button>
             </div>
           );
         })}
@@ -67,6 +71,6 @@ function mapStateToProps(reduxState) {
   };
 }
 
-export default connect(mapStateToProps, { createLobby, getRooms })(
+export default connect(mapStateToProps, { createLobby, getRooms, deleteRoom })(
   LobbyContainer
 );
