@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+// import Lobby from "./Lobby";
 import { createLobby, getRooms, deleteRoom } from "../../store/lobby/actions";
+import CreateRoom from "./CreateRoom";
 
 class LobbyContainer extends Component {
   state = {
@@ -29,25 +31,23 @@ class LobbyContainer extends Component {
   };
 
   render() {
-    console.log("THE RENDER STATE:", this.props.lobby.gameRooms);
-    // if (this.props.lobby.gameRooms.length < 1) return <h2>Loading...</h2>;
+    console.log("THE RENDER STATE:", this.props);
+    if (this.props.lobby.gameRooms.length < 1)
+      return (
+        <div>
+          <CreateRoom
+            handleSubmit={this.handleSubmit}
+            onChange={this.handleClick}
+            state={this.state}
+          />
+          <h2>No rooms found</h2>
+        </div>
+      );
     return (
       <div>
-        <h4>The form</h4>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            ROOM
-            <input
-              type="text"
-              placeholder="Room to enter"
-              name="room"
-              value={this.state.room}
-              onChange={this.handleClick}
-            ></input>
-          </label>
-          <button type="submit">ENTER</button>
-        </form>
-        {console.log("THE ROOMS FROM STATE:", this.props.lobby.gameRooms)}
+        {/* <Lobby /> */}
+
+        {console.log("THE ROOMS FROM STATE:", this.props.rooms.gameRooms)}
 
         {this.props.lobby.gameRooms.map(room => {
           return (

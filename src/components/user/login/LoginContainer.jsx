@@ -28,7 +28,7 @@ class LoginContainer extends Component {
   render() {
     if (this.props.user.userLoggedIn) {
       //TODO: Redirect to user's home page to confirm login
-      return <Redirect to="/" />;
+      return <Redirect to="/lobby" />;
     }
     return (
       <div>

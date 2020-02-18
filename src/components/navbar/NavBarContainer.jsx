@@ -2,10 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logOut } from "../../store/user/actions.js";
 import MaterialUInav from "./MaterialUInav";
+import { withRouter } from "react-router";
 
 class NavBar extends Component {
   render() {
-    return <MaterialUInav user={this.props.user} logOut={this.props.logOut} />;
+    console.log(" render of navbar", this.props);
+
+    return (
+      <MaterialUInav
+        user={this.props.user}
+        logOut={() => {
+          this.props.logOut();
+          this.props.history.push("/");
+        }}
+      />
+    );
   }
 
   // <div>
@@ -29,4 +40,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { logOut })(NavBar);
+export default withRouter(connect(mapStateToProps, { logOut })(NavBar));
