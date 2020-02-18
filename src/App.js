@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import LoginContainer from "./components/user/login/LoginContainer";
 import SignUpContainer from "./components/user/signup/SignUpContainer";
 import { PersistGate } from "redux-persist/integration/react";
+import LobbyContainer from "./components/lobby/LobbyContainer";
 
 class App extends Component {
   render() {
@@ -18,7 +19,8 @@ class App extends Component {
             <PersistGate loading={null} persistor={persistor}>
               <Route path="/signup" component={SignUpContainer} />
               <Route path="/login" component={LoginContainer} />
-              <Route path="/" exact="/" component={Home} />
+              <Route path="/lobby" component={LobbyContainer} />
+              <Route path="/" exact component={Home} />
             </PersistGate>
           </Switch>
         </Provider>

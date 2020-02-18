@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createLobby } from "../../store/lobby/actions";
+import Lobby from "./Lobby";
 
 class LobbyContainer extends Component {
   state = {
@@ -23,7 +24,8 @@ class LobbyContainer extends Component {
   render() {
     return (
       <div>
-        <h4>The form</h4>
+        <Lobby />
+        {/* <h4>The form</h4>
         <form onSubmit={this.handleSubmit}>
           <label>
             ROOM
@@ -36,7 +38,7 @@ class LobbyContainer extends Component {
             ></input>
           </label>
           <button type="submit">ENTER</button>
-        </form>
+        </form> */}
       </div>
     );
   }
