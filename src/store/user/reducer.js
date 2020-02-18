@@ -15,7 +15,7 @@ export default (state = initialState, action = {}) => {
       const errorMsg = action.payload.message;
       return { ...state, error: errorMsg };
     case "USER_LOGOUT":
-      return { ...initialState };
+      return { ...initialState, accountCreated: false };
     case "LOGIN_SUCCESS":
       console.log(`login success reducer:`, action.payload);
       return {
