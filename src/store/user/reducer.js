@@ -4,6 +4,7 @@ const initialState = {
   email: false,
   token: null,
   error: null,
+  gameId: null,
   accountCreated: null
 };
 
@@ -25,6 +26,10 @@ export default (state = initialState, action = {}) => {
         email: action.payload.email,
         token: action.payload.token
       };
+    case "USER_GAME_UPDATE": {
+      console.log("THE UPDATE USER PAYLOAD", action.payload);
+      return { ...state, gameId: action.payload };
+    }
     default:
       return state;
   }

@@ -27,6 +27,7 @@ export default function roomReducer(state = initialState, action) {
       );
       return { ...state, gameRooms: updateDeleted };
     }
+    
     default: {
       return state;
     }
