@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import Lobby from "./Lobby";
-import { createLobby, getRooms, deleteRoom } from "../../store/lobby/actions";
-import CreateRoom from "./CreateRoom";
+import { createLobby, deleteRoom } from "../../store/lobby/actions";
+import CreateRoomForm from "./CreateRoomForm";
 
 class LobbyContainer extends Component {
   state = {
@@ -27,11 +27,10 @@ class LobbyContainer extends Component {
   };
 
   render() {
-    console.log("THE RENDER STATE:", this.props);
     if (this.props.lobby.gameRooms.length < 1)
       return (
         <div>
-          <CreateRoom
+          <CreateRoomForm
             handleSubmit={this.handleSubmit}
             onChange={this.handleClick}
             state={this.state}
@@ -41,13 +40,11 @@ class LobbyContainer extends Component {
       );
     return (
       <div>
-        <CreateRoom
+        <CreateRoomForm
           handleSubmit={this.handleSubmit}
           onChange={this.handleClick}
           state={this.state}
         />
-
-        {console.log("THE ROOMS FROM STATE:", this.props.lobby.gameRooms)}
 
         {this.props.lobby.gameRooms.map(room => {
           return (
@@ -64,13 +61,12 @@ class LobbyContainer extends Component {
 }
 
 function mapStateToProps(reduxState) {
-  console.log("THE REDUX STATE IN LOBBYCOMP", reduxState);
   return {
     user: reduxState.user,
     lobby: reduxState.lobby
   };
 }
 
-export default connect(mapStateToProps, { createLobby, getRooms, deleteRoom })(
+export default connect(mapStateToProps, { createLobby, deleteRoom })(
   LobbyContainer
 );
