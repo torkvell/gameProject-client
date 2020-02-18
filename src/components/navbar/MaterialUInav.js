@@ -17,6 +17,9 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
+  navWrapper: {
+    marginBottom: theme.spacing(3)
+  },
   grow: {
     flexGrow: 1
   },
@@ -106,6 +109,7 @@ export default function PrimarySearchAppBar(props) {
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
+      className={classes.navWrapper}
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={menuId}
@@ -117,7 +121,6 @@ export default function PrimarySearchAppBar(props) {
       {props.user.userLoggedIn ? (
         <div>
           <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
           <MenuItem onClick={props.logOut}>Log Out</MenuItem>
         </div>
       ) : (
@@ -136,6 +139,7 @@ export default function PrimarySearchAppBar(props) {
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
+      className={classes.navWrapper}
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={mobileMenuId}
@@ -174,7 +178,6 @@ export default function PrimarySearchAppBar(props) {
       {props.user.userLoggedIn ? (
         <div>
           <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
           <MenuItem onClick={props.logOut}>Log Out</MenuItem>
         </div>
       ) : (
@@ -191,7 +194,7 @@ export default function PrimarySearchAppBar(props) {
   );
 
   return (
-    <div className={classes.grow}>
+    <div className={(classes.grow, classes.navWrapper)}>
       <AppBar position="static">
         <Toolbar>
           <IconButton

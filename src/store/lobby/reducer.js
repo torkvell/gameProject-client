@@ -6,7 +6,7 @@ export default function roomReducer(state = initialState, action) {
   switch (action.type) {
     case "ROOM_CREATED": {
       const room = action.payload;
-      console.log("ACTION PAYLOAD", action.payload);
+      // console.log("ACTION PAYLOAD", action.payload);
       return {
         ...state,
         room: action.payload,
@@ -20,14 +20,14 @@ export default function roomReducer(state = initialState, action) {
       return { ...state, gameRooms: kamers };
     }
     case "ROOM_DELETE": {
-      console.log("THE ID IN REDUCER", action.payload, state);
+      // console.log("THE ID IN REDUCER", action.payload, state);
 
       const updateDeleted = state.gameRooms.filter(
         room => room.id !== action.payload
       );
       return { ...state, gameRooms: updateDeleted };
     }
-    
+
     default: {
       return state;
     }

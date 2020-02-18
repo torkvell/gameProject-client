@@ -18,7 +18,7 @@ export default (state = initialState, action = {}) => {
     case "USER_LOGOUT":
       return { ...initialState, accountCreated: false };
     case "LOGIN_SUCCESS":
-      console.log(`login success reducer:`, action.payload);
+      // console.log(`login success reducer:`, action.payload);
       return {
         ...state,
         userLoggedIn: true,
@@ -27,7 +27,7 @@ export default (state = initialState, action = {}) => {
         token: action.payload.token
       };
     case "USER_GAME_UPDATE": {
-      console.log("THE UPDATE USER PAYLOAD", action.payload);
+      // console.log("THE UPDATE USER PAYLOAD", action.payload);
       return { ...state, gameId: action.payload };
     }
     default:
