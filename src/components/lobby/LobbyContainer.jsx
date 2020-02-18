@@ -29,8 +29,8 @@ class LobbyContainer extends Component {
   };
 
   render() {
-    console.log("THE RENDER STATE:", this.props.rooms.gameRooms);
-    if (this.props.rooms.gameRooms.length < 1) return <h2>Loading...</h2>;
+    console.log("THE RENDER STATE:", this.props.lobby.gameRooms);
+    // if (this.props.lobby.gameRooms.length < 1) return <h2>Loading...</h2>;
     return (
       <div>
         <h4>The form</h4>
@@ -47,9 +47,9 @@ class LobbyContainer extends Component {
           </label>
           <button type="submit">ENTER</button>
         </form>
-        {console.log("THE ROOMS FROM STATE:", this.props.rooms.gameRooms)}
+        {console.log("THE ROOMS FROM STATE:", this.props.lobby.gameRooms)}
 
-        {this.props.rooms.gameRooms.map(room => {
+        {this.props.lobby.gameRooms.map(room => {
           return (
             <div>
               <h4>{room.room_name}</h4>
@@ -64,10 +64,10 @@ class LobbyContainer extends Component {
 }
 
 function mapStateToProps(reduxState) {
-  // console.log("THE REDUX STATE IN LOBBYCOMP", reduxState);
+  console.log("THE REDUX STATE IN LOBBYCOMP", reduxState);
   return {
     user: reduxState.user,
-    rooms: reduxState.rooms
+    lobby: reduxState.lobby
   };
 }
 
