@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import SignUp from "./SignUp";
 import { signUp } from "../../../store/user/actions.js";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 
 class SignUpContainer extends Component {
   state = {
@@ -24,9 +25,13 @@ class SignUpContainer extends Component {
   };
 
   render() {
-    if (this.props.user.userLoggedIn) {
-      //TODO: Redirect to user's home page to confirm account creation
-      return <Redirect to="/" />;
+    if (this.props.user.accountCreated) {
+      //TODO: Redirect to user's home page to confirm login
+      return (
+        <h3>
+          Thank you for signing up! Please login: <Link to="/login">Login</Link>
+        </h3>
+      );
     }
     return (
       <div>
