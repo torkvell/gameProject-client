@@ -9,8 +9,7 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case "USER_CREATED":
-      const tokenJWT = action.payload.password;
-      return { ...state, userLoggedIn: true, token: tokenJWT };
+      return { ...state };
     case "ERROR":
       const errorMsg = action.payload.message;
       return { ...state, error: errorMsg };

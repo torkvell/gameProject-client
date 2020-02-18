@@ -45,9 +45,13 @@ class LobbyContainer extends Component {
       );
     return (
       <div>
-        {/* <Lobby /> */}
+        <CreateRoom
+          handleSubmit={this.handleSubmit}
+          onChange={this.handleClick}
+          state={this.state}
+        />
 
-        {console.log("THE ROOMS FROM STATE:", this.props.rooms.gameRooms)}
+        {console.log("THE ROOMS FROM STATE:", this.props.lobby.gameRooms)}
 
         {this.props.lobby.gameRooms.map(room => {
           return (
