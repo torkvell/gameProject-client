@@ -59,7 +59,10 @@ class LobbyContainer extends Component {
             <div>
               <h4>{room.room_name}</h4>
               <button
-                onClick={() => this.handleJoin(room.id, this.props.user.id)}
+                onClick={() => {
+                  this.handleJoin(room.id, this.props.user.id);
+                  this.props.history.push("/gametable");
+                }}
               >
                 Join!
               </button>

@@ -6,6 +6,7 @@ import LoginContainer from "./components/user/login/LoginContainer";
 import SignUpContainer from "./components/user/signup/SignUpContainer";
 import LobbyContainer from "./components/lobby/LobbyContainer";
 import { connect } from "react-redux";
+import GameTableContainer from "./components/gametable/GameTableContainer";
 
 class App extends Component {
   stream = new EventSource("http://localhost:4000/stream");
@@ -28,6 +29,7 @@ class App extends Component {
           <Route path="/login" component={LoginContainer} />
           <Route path="/lobby" component={LobbyContainer} />
           <Route path="/" exact component={Home} />
+          <Route path="/gametable" component={GameTableContainer} />
         </Switch>
       </div>
     );
