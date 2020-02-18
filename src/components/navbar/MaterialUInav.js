@@ -160,7 +160,7 @@ export default function PrimarySearchAppBar(props) {
         </IconButton>
         <p>Notifications</p>
       </MenuItem> */}
-      <MenuItem onClick={handleProfileMenuOpen}>
+      {/* <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -170,7 +170,23 @@ export default function PrimarySearchAppBar(props) {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
+      </MenuItem> */}
+      {props.user.userLoggedIn ? (
+        <div>
+          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+          <MenuItem onClick={props.logOut}>Log Out</MenuItem>
+        </div>
+      ) : (
+        <div>
+          <MenuItem onClick={handleMenuClose}>
+            <Link to="/login">Log in</Link>
+          </MenuItem>
+          <MenuItem onClick={handleMenuClose}>
+            <Link to="/signup">Sign up</Link>
+          </MenuItem>
+        </div>
+      )}
     </Menu>
   );
 
@@ -233,7 +249,7 @@ export default function PrimarySearchAppBar(props) {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              <AccountCircle />
             </IconButton>
           </div>
         </Toolbar>
