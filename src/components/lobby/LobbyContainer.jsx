@@ -9,10 +9,6 @@ class LobbyContainer extends Component {
     room: ""
   };
 
-  componentDidMount() {
-    this.props.getRooms();
-  }
-
   handleClick = event => {
     this.setState({
       room: event.target.value

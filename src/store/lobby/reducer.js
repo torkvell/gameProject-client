@@ -4,7 +4,7 @@ export default function roomReducer(state = initialState, action) {
   // console.log("action", action);
 
   switch (action.type) {
-    case "LOBBY_CREATED": {
+    case "ROOM_CREATED": {
       const room = action.payload;
       console.log("ACTION PAYLOAD", action.payload);
       return {

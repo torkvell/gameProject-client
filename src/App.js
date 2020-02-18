@@ -1,31 +1,39 @@
 import React, { Component } from "react";
-import { store, persistor } from "./store/store";
-import { Provider } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import NavBarContainer from "./components/navbar/NavBarContainer";
 import Home from "./components/Home";
 import LoginContainer from "./components/user/login/LoginContainer";
 import SignUpContainer from "./components/user/signup/SignUpContainer";
-import { PersistGate } from "redux-persist/integration/react";
 import LobbyContainer from "./components/lobby/LobbyContainer";
+import { connect } from "react-redux";
 
 class App extends Component {
+  stream = new EventSource("http://localhost:4000/stream");
+
+  componentDidMount() {
+    this.stream.onmessage = event => {
+      console.log(event);
+      const { data } = event;
+      const action = JSON.parse(data);
+      this.props.dispatch(action);
+    };
+  }
+
   render() {
     return (
       <div className="App">
-        <Provider store={store}>
-          <NavBarContainer />
-          <Switch>
-            <PersistGate loading={null} persistor={persistor}>
-              <Route path="/signup" component={SignUpContainer} />
-              <Route path="/login" component={LoginContainer} />
-              <Route path="/lobby" component={LobbyContainer} />
-              <Route path="/" exact component={Home} />
-            </PersistGate>
-          </Switch>
-        </Provider>
+        <NavBarContainer />
+        <Switch>
+          <Route path="/signup" component={SignUpContainer} />
+          <Route path="/login" component={LoginContainer} />
+          <Route path="/lobby" component={LobbyContainer} />
+          <Route path="/" exact component={Home} />
+        </Switch>
       </div>
     );
   }
 }
-export default App;
+
+const mapDispatchToProps = () => {};
+
+export default connect(mapDispatchToProps)(App);
