@@ -1,18 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createLobby } from "../../store/lobby/actions";
 import Lobby from "./Lobby";
+import { createLobby, getRooms, deleteRoom } from "../../store/lobby/actions";
 
 class LobbyContainer extends Component {
   state = {
     room: ""
   };
 
+  componentDidMount() {
+    this.props.getRooms();
+  }
+
   handleClick = event => {
     this.setState({
       room: event.target.value
     });
-    console.log("THE ROOM VALS:", this.state);
+    // console.log("THE ROOM VALS:", this.state);
   };
 
   handleSubmit = e => {
@@ -21,7 +25,13 @@ class LobbyContainer extends Component {
     this.props.createLobby(this.state, this.props.user.token);
   };
 
+  deleteRoom = id => {
+    this.props.deleteRoom(id);
+  };
+
   render() {
+    console.log("THE RENDER STATE:", this.props);
+    if (this.props.rooms.length < 1) return <h2>Loading...</h2>;
     return (
       <div>
         <Lobby />
@@ -39,17 +49,30 @@ class LobbyContainer extends Component {
           </label>
           <button type="submit">ENTER</button>
         </form> */}
+        {console.log("THE ROOMS FROM STATE:", this.props.rooms.gameRooms)}
+
+        {this.props.rooms.gameRooms.map(room => {
+          return (
+            <div>
+              <h4>{room.room_name}</h4>
+              <button>Join!</button>
+              <button onClick={() => this.deleteRoom(room.id)}>Delete</button>
+            </div>
+          );
+        })}
       </div>
     );
   }
 }
 
 function mapStateToProps(reduxState) {
-  console.log("THE REDUX STATE IN LOBBYCOMP", reduxState);
-
+  // console.log("THE REDUX STATE IN LOBBYCOMP", reduxState);
   return {
-    user: reduxState.user
+    user: reduxState.user,
+    rooms: reduxState.rooms
   };
 }
 
-export default connect(mapStateToProps, { createLobby })(LobbyContainer);
+export default connect(mapStateToProps, { createLobby, getRooms, deleteRoom })(
+  LobbyContainer
+);
