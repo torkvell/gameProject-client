@@ -3,13 +3,14 @@ const initialState = {
   id: false,
   email: false,
   token: null,
-  error: null
+  error: null,
+  accountCreated: null
 };
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case "USER_CREATED":
-      return { ...state };
+      return { ...state, accountCreated: true };
     case "ERROR":
       const errorMsg = action.payload.message;
       return { ...state, error: errorMsg };
