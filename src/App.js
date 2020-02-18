@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { store, persistor } from "./store/store";
 import { Provider } from "react-redux";
 import { Switch, Route } from "react-router-dom";
-import NavBar from "./components/navbar/NavBar";
+import NavBarContainer from "./components/navbar/NavBarContainer";
 import Home from "./components/Home";
 import LoginContainer from "./components/user/login/LoginContainer";
 import SignUpContainer from "./components/user/signup/SignUpContainer";
@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div className="App">
         <Provider store={store}>
-          <NavBar />
+          <NavBarContainer />
           <Switch>
             <PersistGate loading={null} persistor={persistor}>
               <Route path="/signup" component={SignUpContainer} />
