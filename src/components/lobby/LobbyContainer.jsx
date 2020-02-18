@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import Lobby from "./Lobby";
+import LobbyTable from "./LobbyTable";
 import {
   createLobby,
   deleteRoom,
   thunkHandleJoin
 } from "../../store/lobby/actions";
 import CreateRoomForm from "./CreateRoomForm";
+import Container from "@material-ui/core/Container";
 
 class LobbyContainer extends Component {
   state = {
@@ -20,10 +21,13 @@ class LobbyContainer extends Component {
     // console.log("THE ROOM VALS:", this.state);
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    // this.setState;
-    this.props.createLobby(this.state, this.props.user.token);
+  // handleSubmit = e => {
+  //   e.preventDefault();
+  //   // this.setState;
+  //   this.props.createLobby(this.state, this.props.user.token);
+  // };
+  createGame = (gameName, userToken) => {
+    this.props.createLobby(gameName, userToken);
   };
 
   deleteRoom = id => {
@@ -33,43 +37,26 @@ class LobbyContainer extends Component {
   handleJoin = (gameId, userId) => {
     console.log("THE GAME AND USER IDS:", gameId, userId);
     this.props.thunkHandleJoin(gameId, userId);
+    this.props.history.push("/gametable");
   };
   render() {
-    if (this.props.lobby.gameRooms.length < 1)
-      return (
-        <div>
-          <CreateRoomForm
+    if (this.props.lobby.gameRooms.length < 1) return <h2>No rooms found</h2>;
+    return (
+      <div>
+        <Container>
+          {/* <CreateRoomForm
             handleSubmit={this.handleSubmit}
             onChange={this.handleClick}
             state={this.state}
+          /> */}
+          <LobbyTable
+            props={this.props}
+            deleteRoom={this.deleteRoom}
+            joinRoom={this.handleJoin}
+            createGame={this.createGame}
+            onChange={this.handleClick}
           />
-          <h2>No rooms found</h2>
-        </div>
-      );
-    return (
-      <div>
-        <CreateRoomForm
-          handleSubmit={this.handleSubmit}
-          onChange={this.handleClick}
-          state={this.state}
-        />
-
-        {this.props.lobby.gameRooms.map(room => {
-          return (
-            <div>
-              <h4>{room.room_name}</h4>
-              <button
-                onClick={() => {
-                  this.handleJoin(room.id, this.props.user.id);
-                  this.props.history.push("/gametable");
-                }}
-              >
-                Join!
-              </button>
-              <button onClick={() => this.deleteRoom(room.id)}>Delete</button>
-            </div>
-          );
-        })}
+        </Container>
       </div>
     );
   }

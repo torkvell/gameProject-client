@@ -13,7 +13,7 @@ class App extends Component {
 
   componentDidMount() {
     this.stream.onmessage = event => {
-      console.log(event);
+      // console.log(event);
       const { data } = event;
       const action = JSON.parse(data);
       this.props.dispatch(action);

@@ -16,20 +16,6 @@ class NavBar extends Component {
       />
     );
   }
-
-  // <div>
-  //   <Link path="/" to="/">
-  //     Home
-  //   </Link>
-  //   {this.props.user.userLoggedIn ? (
-  //     <div onClick={this.props.logOut}>Log Out</div>
-  //   ) : (
-  //     <div>
-  //       <Link to="/login">Log in</Link>
-  //       <Link to="/signup">Sign up</Link>
-  //     </div>
-  //   )}
-  // </div>
 }
 
 function mapStateToProps(state) {
@@ -38,4 +24,5 @@ function mapStateToProps(state) {
   };
 }
 
+//TODO: Check if it's necessary with withRouter. There should be a way to pass the history prop from browserrouter
 export default withRouter(connect(mapStateToProps, { logOut })(NavBar));
