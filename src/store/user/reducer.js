@@ -23,7 +23,7 @@ export default (state = initialState, action = {}) => {
         userLoggedIn: true,
         id: action.payload.id,
         email: action.payload.email,
-        token: action.payload.password
+        token: action.payload.token
       };
     default:
       return state;
