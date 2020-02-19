@@ -4,9 +4,9 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
-  playIconLobby: {
-    cursor: "pointer"
-  }
+  // playIconLobby: {
+  //   cursor: "pointer"
+  // }
 }));
 
 export default function MaterialTableDemo(props) {
@@ -14,24 +14,26 @@ export default function MaterialTableDemo(props) {
   console.log(props);
   const [state, setState] = React.useState({
     columns: [
-      { title: "Game name", field: "name" },
+      { title: "Table name", field: "tableName" },
+      { title: "id", field: "id" },
       { title: "Start date", field: "startDate" },
-      { title: "Active players", field: "activePlayers", type: "numeric" },
-      { title: "Join game", field: "joinGame" }
+      { title: "Active players", field: "activePlayers", type: "numeric" }
     ],
     data: props.props.lobby.gameRooms.map(game => {
       return {
-        name: game.room_name,
+        tableName: game.room_name,
+        id: game.id,
         startDate: game.createdAt,
-        activePlayers: 0,
-        joinGame: (
-          <PlayCircleOutlineIcon
-            onClick={props.joinRoom}
-            className={classes.playIconLobby}
-          />
-        )
+        activePlayers: 0
       };
-    })
+    }),
+    actions: [
+      {
+        icon: PlayCircleOutlineIcon,
+        tooltip: "Save User",
+        onClick: (event, rowData) => props.joinRoom()
+      }
+    ]
   });
 
   return (
@@ -39,6 +41,7 @@ export default function MaterialTableDemo(props) {
       title="Game Lobby"
       columns={state.columns}
       data={state.data}
+      actions={state.actions}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
@@ -51,7 +54,7 @@ export default function MaterialTableDemo(props) {
               });
             }, 600);
             const token = props.props.user.token;
-            props.createGame(newData.name, token);
+            props.createGame(newData.tableName, token);
           }),
         onRowUpdate: (newData, oldData) =>
           new Promise(resolve => {
@@ -70,7 +73,7 @@ export default function MaterialTableDemo(props) {
           new Promise(resolve => {
             setTimeout(() => {
               resolve();
-              props.deleteRoom(props.props.room.id);
+              props.deleteRoom(oldData.id);
               setState(prevState => {
                 const data = [...prevState.data];
                 data.splice(data.indexOf(oldData), 1);
