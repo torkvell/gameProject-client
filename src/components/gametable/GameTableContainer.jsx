@@ -10,10 +10,17 @@ class GameTableContainer extends Component {
       console.log("RESPONSE FROM GAMRTABLE REQUEST", response)
     );
   }
+
   render() {
+    const user = [{ id: 1 }, { id: 2 }, { id: 3 }];
+    const deck = [{ id: 1 }];
     return (
       <div>
         <h2> GAME TABLE</h2>
+        {user.map(user => {
+          return <div>User: {user.id}</div>;
+        })}
+        {console.log("Deck: ", deck)}
       </div>
     );
   }

@@ -30,8 +30,9 @@ export default function MaterialTableDemo(props) {
     actions: [
       {
         icon: PlayCircleOutlineIcon,
-        tooltip: "Save User",
-        onClick: (event, rowData) => props.joinRoom()
+        tooltip: "Join Table",
+        onClick: (event, rowData) =>
+          props.joinRoom(rowData.id, props.props.user.id)
       }
     ]
   });

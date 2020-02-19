@@ -50,14 +50,14 @@ function updateUser(gameid) {
 }
 
 export const thunkHandleJoin = (gameId, userId) => dispatch => {
-  console.log("THE IDSSSS:(THUNK HANDLE)", gameId, userId);
+  // console.log("THE ID'S:(THUNK HANDLE)", gameId, userId);
   axios
     .post(`${baseUrl}/addGameToUser`, {
       gameId,
       userId
     })
     .then(response => {
-      console.log("THE JOIN THUNK RESPONSE", response);
+      // console.log("THE JOIN THUNK RESPONSE", response);
       // const
       dispatch(updateUser(response.data));
     });

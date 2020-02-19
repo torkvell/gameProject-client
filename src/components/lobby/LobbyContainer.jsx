@@ -39,8 +39,9 @@ class LobbyContainer extends Component {
     this.props.thunkHandleJoin(gameId, userId);
     this.props.history.push("/gametable");
   };
+
   render() {
-    if (this.props.lobby.gameRooms.length < 1) return <h2>No rooms found</h2>;
+    // if (this.props.lobby.gameRooms.length < 1) return <h2>No rooms found</h2>;
     return (
       <div>
         <Container>
