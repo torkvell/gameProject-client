@@ -1,26 +1,32 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Axios from "axios";
+import { gameTableToState } from "../../store/gameTable/action";
 
 class GameTableContainer extends Component {
   componentDidMount() {
-    Axios.post("http://localhost:4000/gametable", {
+    const response = Axios.post("http://localhost:4000/gametable", {
       data: this.props.userData.gameId
-    }).then(response =>
-      console.log("RESPONSE FROM GAMRTABLE REQUEST", response)
-    );
+    }).then(res => {
+      const resObj = res.data;
+      this.props.gameTableToState(resObj);
+    });
   }
 
   render() {
-    const user = [{ id: 1 }, { id: 2 }, { id: 3 }];
-    const deck = [{ id: 1 }];
+    console.log("gameID: ", this.props.userData.gameId);
+
+    // const user = [{ id: 1 }, { id: 2 }, { id: 3 }];
+    // const deck = [{ id: 1 }];
+    if (this.props.gameTable.users.length === 0) {
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <h2> GAME TABLE</h2>
-        {user.map(user => {
+        {this.props.gameTable.users.map(user => {
           return <div>User: {user.id}</div>;
         })}
-        {console.log("Deck: ", deck)}
       </div>
     );
   }
@@ -28,8 +34,11 @@ class GameTableContainer extends Component {
 
 function mapStateToProps(reduxState) {
   return {
-    userData: reduxState.user
+    userData: reduxState.user,
+    gameTable: reduxState.gameTable
   };
 }
 
-export default connect(mapStateToProps)(GameTableContainer);
+export default connect(mapStateToProps, { gameTableToState })(
+  GameTableContainer
+);
