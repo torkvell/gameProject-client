@@ -10,7 +10,7 @@ export const createLobby = (room_name, jwt) => (dispatch, getState) => {
   console.log(`thunk create lobby: `, room_name, jwt);
   const config = { Authorization: `Bearer ${jwt}` };
   axios
-    .post(`${baseUrl}/room`, room_name, { headers: config })
+    .post(`${baseUrl}/room`, { data: room_name }, { headers: config })
     .then(response => {
       console.log(`createLobby thunk server resposne: `, response);
       const roomId = response.data.id;
