@@ -6,7 +6,6 @@ import {
   deleteRoom,
   thunkHandleJoin
 } from "../../store/lobby/actions";
-import CreateRoomForm from "./CreateRoomForm";
 import Container from "@material-ui/core/Container";
 
 class LobbyContainer extends Component {
@@ -35,12 +34,13 @@ class LobbyContainer extends Component {
   };
 
   handleJoin = (gameId, userId) => {
-    console.log("THE GAME AND USER IDS:", gameId, userId);
+    console.log("game id and user id: ", gameId, userId);
+    this.props.history.push(`/gametable?gameId=${gameId}`);
     this.props.thunkHandleJoin(gameId, userId);
-    this.props.history.push("/gametable");
   };
 
   render() {
+    console.log("State redux: ", this.props.state);
     // if (this.props.lobby.gameRooms.length < 1) return <h2>No rooms found</h2>;
     return (
       <div>
@@ -66,7 +66,8 @@ class LobbyContainer extends Component {
 function mapStateToProps(reduxState) {
   return {
     user: reduxState.user,
-    lobby: reduxState.lobby
+    lobby: reduxState.lobby,
+    state: reduxState
   };
 }
 

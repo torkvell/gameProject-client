@@ -13,9 +13,9 @@ class App extends Component {
 
   componentDidMount() {
     this.stream.onmessage = event => {
-      // console.log(event);
       const { data } = event;
       const action = JSON.parse(data);
+      console.log("STREAM response:", action);
       this.props.dispatch(action);
     };
   }
@@ -37,5 +37,10 @@ class App extends Component {
 }
 
 const mapDispatchToProps = () => {};
+
+// const mapStateToProps = state => {
+//   console.log(state);
+//   return { state: state };
+// };
 
 export default connect(mapDispatchToProps)(App);

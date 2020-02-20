@@ -11,7 +11,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function MaterialTableDemo(props) {
   const classes = useStyles();
-  console.log(props);
   const [state, setState] = React.useState({
     columns: [
       { title: "Table name", field: "tableName" },
@@ -36,7 +35,7 @@ export default function MaterialTableDemo(props) {
       }
     ]
   });
-
+  console.log("Lobby table props: ", props);
   return (
     <MaterialTable
       title="Game Lobby"

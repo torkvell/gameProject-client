@@ -5,12 +5,14 @@ export default function roomReducer(state = initialState, action) {
 
   switch (action.type) {
     case "TABLE_USERS": {
-      const data = { users: action.payload, deck_id: action.deck_id };
-
-      return [...state, data];
+      console.log("TABLE_USER reducer input: ", action);
+      const data = action.payload;
+      return data;
     }
     default: {
       return state;
     }
+    case "USER_LOGOUT":
+      return { ...initialState };
   }
 }

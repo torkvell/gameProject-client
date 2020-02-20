@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default class Home extends Component {
+class Home extends Component {
   render() {
+    console.log(`REDUX state: `, this.props.state);
     return (
       <div>
         <h2>Home</h2>
@@ -9,3 +11,11 @@ export default class Home extends Component {
     );
   }
 }
+
+function mapStateToProps(reduxState) {
+  return {
+    state: reduxState
+  };
+}
+
+export default connect(mapStateToProps)(Home);
